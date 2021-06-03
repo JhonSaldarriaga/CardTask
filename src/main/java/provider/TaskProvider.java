@@ -45,7 +45,7 @@ public class TaskProvider {
         connection.disconnect();
     }
 
-    private Task getTask(int id) throws SQLException, ParseException {
+    public Task getTask(int id) throws SQLException, ParseException {
         String sql = "SELECT * FROM A00362210_tasks WHERE id=$ID".replace("$ID",""+id);
         DBConnection connection = new DBConnection();
         connection.connect();
@@ -62,7 +62,7 @@ public class TaskProvider {
         return task;
     }
 
-    private ArrayList<Task> getAllTasks() throws SQLException, ParseException {
+    public ArrayList<Task> getAllTasks() throws SQLException, ParseException {
         String sql = "SELECT * FROM A00362210_tasks";
         ArrayList<Task> tasks = new ArrayList<>();
         DBConnection connection = new DBConnection();

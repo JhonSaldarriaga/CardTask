@@ -13,6 +13,7 @@ public class Task {
     private String category;
     private Date date;
 
+    public Task(){}
     public Task(int id, String title, String description, String category, Date date) {
         this.id = id;
         this.title = title;
