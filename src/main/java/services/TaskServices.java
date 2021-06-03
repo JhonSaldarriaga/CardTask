@@ -2,15 +2,15 @@ package services;
 
 import com.google.gson.Gson;
 import model.Task;
+import model.TaskList;
 import provider.TaskProvider;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
 
-@ApplicationPath("task")
+@Path("task")
 public class TaskServices {
 
     @POST
@@ -82,22 +82,21 @@ public class TaskServices {
         }
     }
 
+    @GET
     @Consumes("application/json")
     @Produces("application/json")
     @Path("getAll")
     public Response getAllTasks(){
-
         try {
             Gson gson = new Gson();
             TaskProvider provider= new TaskProvider();
-            ArrayList<Task> tasks= provider.getAllTasks();
-            String list = gson.toJson(tasks,Task.class);
+            TaskList tasks= new TaskList(provider.getAllTasks());
+            String list = gson.toJson(tasks,TaskList.class);
             return Response
                     .status(200)
                     .entity(list)
                     .header("Access-Control-Allow-Origin","*")
                     .build();
-
         } catch (SQLException | ParseException throwables) {
             throwables.printStackTrace();
             return Response
