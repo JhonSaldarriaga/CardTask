@@ -1,5 +1,6 @@
 package model;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -11,10 +12,11 @@ public class Task {
     private String title;
     private String description;
     private String category;
-    private Date date;
+    private String date;
 
     public Task(){}
-    public Task(int id, String title, String description, String category, Date date) {
+
+    public Task(int id, String title, String description, String category, String date) throws ParseException {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -22,7 +24,7 @@ public class Task {
         this.date = date;
     }
 
-    public Task(String title, String description, String category, Date date) {
+    public Task(String title, String description, String category, String date) throws ParseException {
         this.title = title;
         this.description = description;
         this.category = category;
@@ -65,11 +67,11 @@ public class Task {
         this.description = description;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

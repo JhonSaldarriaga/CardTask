@@ -1,8 +1,6 @@
 package services;
 
-import com.google.gson.Gson;
 import model.Task;
-import model.TaskList;
 import provider.TaskProvider;
 
 import javax.ws.rs.*;
