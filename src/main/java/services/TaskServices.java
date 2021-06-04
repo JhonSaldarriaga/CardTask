@@ -73,6 +73,26 @@ public class TaskServices {
     }
 
     @GET
+    @Path("get/{id}")
+    public Response get(@PathParam("id") int id){
+        try {
+            TaskProvider provider= new TaskProvider();
+            Task task = provider.getTask(id);
+            return Response
+                    .status(200)
+                    .entity(task)
+                    .header("Content-Type","application/json")
+                    .build();
+        } catch (SQLException | ParseException throwables) {
+            throwables.printStackTrace();
+            return Response
+                    .status(500)
+                    .header("Access-Control-Allow-Origin","*")
+                    .build();
+        }
+    }
+
+    @GET
     @Path("alltodo")
     public Response getAllTasksToDo(){
         try {

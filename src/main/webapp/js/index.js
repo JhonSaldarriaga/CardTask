@@ -5,6 +5,26 @@ const toDoContainer = document.getElementById('todo');
 const doingContainer = document.getElementById('doing');
 const doneContainer = document.getElementById('done');
 
+const getTask = (container,title,id) => {
+    let xhr = new XMLHttpRequest();
+    xhr.addEventListener('readystatechange', ()=>{
+        if(xhr.readyState === 4){
+            let json = xhr.responseText;
+            let response = JSON.parse(json);
+            console.log(response);
+
+            let taskDTO = response;
+            let view = new CardView(taskDTO);
+            view.onDeleteFinish = () =>{
+                container.removeChild(document.getElementById('taskCard-' + taskDTO.id));////////////
+            };
+            container.appendChild(view.render());
+        }
+    });
+    xhr.open("GET", "http://localhost:8081/CardTask_war/api/task/get/" + id);
+    xhr.send();
+}
+
 const getAllTasks = () =>{
     getAllTasksFrom(toDoContainer,'alltodo','To Do');
     getAllTasksFrom(doingContainer,'alldoing', 'Doing');
@@ -77,14 +97,15 @@ toDoContainer.addEventListener('drop', e=>{
     e.target.classList.remove('hover');
     const id = e.dataTransfer.getData('id');
     const number = id.split('-')[1];
-    toDoContainer.appendChild(document.getElementById(id));
+    var element = document.getElementById(id);
+    element.parentNode.removeChild(element);
 
     const updateCa = new UpdateCategory(number, "to_do");
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', ()=>{
         if(xhr.readyState ===4 ){
             console.log(xhr.responseText);
-            getAllTasksFrom(toDoContainer,'alltodo', 'To Do');
+            getTask(toDoContainer, 'To Do', number);
         }
     })
     xhr.open("PUT", "http://localhost:8081/CardTask_war/api/task/updateca");
@@ -106,14 +127,15 @@ doingContainer.addEventListener('drop', e=>{
     e.target.classList.remove('hover');
     const id = e.dataTransfer.getData('id');
     const number = id.split('-')[1];
-    doingContainer.appendChild(document.getElementById(id));
+    var element = document.getElementById(id);
+    element.parentNode.removeChild(element);
 
     const updateCa = new UpdateCategory(number, "doing");
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', ()=>{
         if(xhr.readyState ===4 ){
             console.log(xhr.responseText);
-            getAllTasksFrom(doingContainer,'alldoing', 'Doing');
+            getTask(doingContainer, 'Doing', number);
         }
     })
     xhr.open("PUT", "http://localhost:8081/CardTask_war/api/task/updateca");
@@ -135,14 +157,15 @@ doneContainer.addEventListener('drop', e=>{
     e.target.classList.remove('hover');
     const id = e.dataTransfer.getData('id');
     const number = id.split('-')[1];
-    doneContainer.appendChild(document.getElementById(id));
+    var element = document.getElementById(id);
+    element.parentNode.removeChild(element);
 
     const updateCa = new UpdateCategory(number, "done");
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', ()=>{
         if(xhr.readyState ===4 ){
             console.log(xhr.responseText);
-            getAllTasksFrom(doneContainer,'alldone', 'Done');
+            getTask(doneContainer, 'Done', number);
         }
     })
     xhr.open("PUT", "http://localhost:8081/CardTask_war/api/task/updateca");
