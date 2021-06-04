@@ -27,16 +27,17 @@ class CardView{
         let eraseBtn = document.createElement('button'); 
         eraseBtn.innerHTML = 'X';
         let title = document.createElement('h4');
-        title.id = 'title-'+this.task.id;
         title.className = 'card-title';
         let description = document.createElement('p');
-        description.id = 'description-'+this.task.id;
         let date = document.createElement('small');
-        date.id = 'date-'+this.task.id;
-
+        
         title.innerHTML = this.task.title;
         description.innerHTML = this.task.description;
         date.innerHTML = this.task.date;
+        
+        title.id = 'title-'+this.task.id;
+        description.id = 'description-'+this.task.id;
+        date.id = 'date-'+this.task.id;
 
         divTwo.appendChild(eraseBtn);
         divOne.appendChild(divTwo);

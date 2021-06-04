@@ -27,7 +27,7 @@ const getAllTasksFrom = (container,path,title) =>{
                 let taskDTO = response[i];
                 let view = new CardView(taskDTO);
                 view.onDeleteFinish = () =>{
-                    container.removeChild(document.getElementById('taskCard' + taskDTO.id));
+                    container.removeChild(document.getElementById('taskCard-' + taskDTO.id));////////////
                 };
                 container.appendChild(view.render());
             }
