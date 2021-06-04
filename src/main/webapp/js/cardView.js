@@ -25,6 +25,7 @@ class CardView{
         let divTwo = document.createElement('div');
         divTwo.className = 'btnContainer';
         let eraseBtn = document.createElement('button'); 
+        eraseBtn.id = 'eraseBtn-'+this.task.id;
         eraseBtn.innerHTML = 'X';
         let title = document.createElement('h4');
         title.className = 'card-title';

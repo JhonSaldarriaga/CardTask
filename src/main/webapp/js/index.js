@@ -84,6 +84,7 @@ toDoContainer.addEventListener('drop', e=>{
     xhr.addEventListener('readystatechange', ()=>{
         if(xhr.readyState ===4 ){
             console.log(xhr.responseText);
+            getAllTasksFrom(toDoContainer,'alltodo', 'To Do');
         }
     })
     xhr.open("PUT", "http://localhost:8081/CardTask_war/api/task/updateca");
@@ -112,6 +113,7 @@ doingContainer.addEventListener('drop', e=>{
     xhr.addEventListener('readystatechange', ()=>{
         if(xhr.readyState ===4 ){
             console.log(xhr.responseText);
+            getAllTasksFrom(doingContainer,'alldoing', 'Doing');
         }
     })
     xhr.open("PUT", "http://localhost:8081/CardTask_war/api/task/updateca");
@@ -140,6 +142,7 @@ doneContainer.addEventListener('drop', e=>{
     xhr.addEventListener('readystatechange', ()=>{
         if(xhr.readyState ===4 ){
             console.log(xhr.responseText);
+            getAllTasksFrom(doneContainer,'alldone', 'Done');
         }
     })
     xhr.open("PUT", "http://localhost:8081/CardTask_war/api/task/updateca");
