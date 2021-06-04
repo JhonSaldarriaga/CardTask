@@ -78,8 +78,11 @@ body {}
     margin-right: 230px;
 }
 
-#eraseBtn {
-    margin: 2px 5px;
+.eraseBtn {
+    position: relative;
+    left: 0;
+    top: 0;
     border-radius: 10px;
+    margin: 2px 5px;
     background-color: red;
 }
