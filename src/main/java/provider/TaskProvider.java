@@ -61,8 +61,22 @@ public class TaskProvider {
         return task;
     }
 
-    public ArrayList<Task> getAllTasks() throws SQLException, ParseException {
-        String sql = "SELECT * FROM A00362210_tasks";
+    public ArrayList<Task> getAllTasksToDo() throws SQLException, ParseException {
+        String sql = "SELECT * FROM A00362210_tasks WHERE category = $CATEGORY".replace("$CATEGORY","'"+ "to_do" +"'");
+        return getAllTask(sql);
+    }
+
+    public ArrayList<Task> getAllTasksDoing() throws SQLException, ParseException {
+        String sql = "SELECT * FROM A00362210_tasks WHERE category = $CATEGORY".replace("$CATEGORY","'"+ "doing" +"'");
+        return getAllTask(sql);
+    }
+
+    public ArrayList<Task> getAllTasksDone() throws SQLException, ParseException {
+        String sql = "SELECT * FROM A00362210_tasks WHERE category = $CATEGORY".replace("$CATEGORY","'"+ "done" +"'");
+        return getAllTask(sql);
+    }
+
+    private ArrayList<Task> getAllTask(String sql) throws SQLException, ParseException{
         ArrayList<Task> tasks = new ArrayList<>();
         DBConnection connection = new DBConnection();
         connection.connect();

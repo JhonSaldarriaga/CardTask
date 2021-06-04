@@ -33,7 +33,7 @@ class CardToDoView{
         title.className = 'titleCard';//<p class="titleCard"></p>
         let description = document.createElement('p');//<p></p>
         let date = document.createElement('small');//<small></small>
-        
+
         title.innerHTML = this.task.title;//<p class="titleCard">Title</p>
         description.innerHTML = this.task.description;//<p>Description</p>
         date.innerHTML = this.task.date;//<small>Date</small>
@@ -41,35 +41,10 @@ class CardToDoView{
         divTwo.appendChild(eraseBtn);//<div class="btnContainer"> <button> X </button> </div>
         divThree.appendChild(right);//<div class="btnContainer"> <button class="categoryBtn"></button> </div>
         divOne.appendChild(divTwo);
-        //<div class="article"> 
-        //<div class="btnContainer"> <button> X </button> </div> 
-        //</div>
         divOne.appendChild(title);
-        //<div class="article">
-        //<div class="btnContainer"> <button> X </button> </div> 
-        //<p class="titleCard">Title</p>
-        //</div>
         divOne.appendChild(description);
-        //<div class="article">  
-        //<div class="btnContainer"> <button> X </button> </div> 
-        //<p class="titleCard">Title</p>
-        //<p>Description</p>
-        //</div>
         divOne.appendChild(date);
-        //<div class="article"> 
-        //<div class="btnContainer"> <button> X </button> </div> 
-        //<p class="titleCard">Title</p>
-        //<p>Description</p>
-        //<small>Date</small>
-        //</div>
         divOne.appendChild(divThree);
-        //<div class="article">
-        //<div class="btnContainer"> <button> X </button> </div> 
-        //<p class="titleCard">Title</p>
-        //<p>Description</p>
-        //<small>Date</small>
-        //<div class="btnContainer"> <button class="categoryBtn"></button> </div>
-        //</div>
 
         eraseBtn.addEventListener('click', this.deleteTask);
 

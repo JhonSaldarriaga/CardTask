@@ -73,11 +73,51 @@ public class TaskServices {
     }
 
     @GET
-    @Path("all")
-    public Response getAllTasks(){
+    @Path("alltodo")
+    public Response getAllTasksToDo(){
         try {
             TaskProvider provider= new TaskProvider();
-            ArrayList<Task> tasks = provider.getAllTasks();
+            ArrayList<Task> tasks = provider.getAllTasksToDo();
+            return Response
+                    .status(200)
+                    .entity(tasks)
+                    .header("Content-Type","application/json")
+                    .build();
+        } catch (SQLException | ParseException throwables) {
+            throwables.printStackTrace();
+            return Response
+                    .status(500)
+                    .header("Access-Control-Allow-Origin","*")
+                    .build();
+        }
+    }
+
+    @GET
+    @Path("alldoing")
+    public Response getAllTasksDoing(){
+        try {
+            TaskProvider provider= new TaskProvider();
+            ArrayList<Task> tasks = provider.getAllTasksDoing();
+            return Response
+                    .status(200)
+                    .entity(tasks)
+                    .header("Content-Type","application/json")
+                    .build();
+        } catch (SQLException | ParseException throwables) {
+            throwables.printStackTrace();
+            return Response
+                    .status(500)
+                    .header("Access-Control-Allow-Origin","*")
+                    .build();
+        }
+    }
+
+    @GET
+    @Path("alldone")
+    public Response getAllTasksDone(){
+        try {
+            TaskProvider provider= new TaskProvider();
+            ArrayList<Task> tasks = provider.getAllTasksDone();
             return Response
                     .status(200)
                     .entity(tasks)

@@ -2,8 +2,16 @@ const createBtn = document.getElementById('createBtn');
 const title = document.getElementById('titleTask');
 const description = document.getElementById('descriptionTask');
 const toDoContainer = document.getElementById('todo');
+const doingContainer = document.getElementById('doing');
+const doneContainer = document.getElementById('done');
 
-const getAllTasks = () => {
+const getAllTasks = () =>{
+    getAllTasksFrom(toDoContainer,'alltodo','To Do');
+    getAllTasksFrom(doingContainer,'alldoing', 'Doing');
+    getAllTasksFrom(doneContainer,'alldone', 'Done');
+}
+
+const getAllTasksFrom = (container,path,title) =>{
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', ()=>{
         if(xhr.readyState === 4){
@@ -11,20 +19,33 @@ const getAllTasks = () => {
             let response = JSON.parse(json);
             console.log(response);
 
-            toDoContainer.innerHTML = ''
+            container.innerHTML = '';
+            let pa = document.createElement('p');
+            pa.innerHTML = title;
+            container.appendChild(pa);
             for(let i=0 ; i<response.length ; i++){
                 let taskDTO = response[i];
-                let view = new CardToDoView(taskDTO);
+                let view;
+                if(path == 'todo')
+                    view = new CardToDoView(taskDTO);
+                else {
+                    if(path == 'todoing')
+                        view = new CardDoingView(taskDTO);
+                    else{
+                        view = new CardDoneView(taskDTO);
+                    }
+                }
                 view.onDeleteFinish = () =>{
-                    toDoContainer.removeChild(document.getElementById('taskCard' + taskDTO.id));
+                    container.removeChild(document.getElementById('taskCard' + taskDTO.id));
                 };
-                toDoContainer.appendChild(view.render());
+                container.appendChild(view.render());
             }
         }
     });
-    xhr.open("GET", "http://localhost:8081/CardTask_war/api/task/all");
+    xhr.open("GET", "http://localhost:8081/CardTask_war/api/task/" + path);
     xhr.send();
-};
+}
+
 getAllTasks();
 
 const addTask = () => {
@@ -45,6 +66,8 @@ const addTask = () => {
         document.getElementById('descriptionTask').value = "";
     };
     clean();
+
+    getAllTasks();
 };
 createBtn.addEventListener('click', addTask);
 
