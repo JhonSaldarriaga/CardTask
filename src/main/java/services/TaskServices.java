@@ -9,6 +9,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 @Path("task")
 public class TaskServices {
@@ -16,11 +17,9 @@ public class TaskServices {
     @POST
     @Consumes("application/json")
     @Path("add")
-    public Response addTask(String task){
+    public Response addTask(Task obj){
         try{
-            Gson gson = new Gson();
-            TaskProvider provider = new TaskProvider();
-            Task obj = gson.fromJson(task, Task.class);
+            TaskProvider provider = new TaskProvider();;
             provider.addTask(obj);
             return Response
                     .status(200)
@@ -37,19 +36,15 @@ public class TaskServices {
     }
 
     @DELETE
-    @Consumes("application/json")
-    @Path("delete")
-    public Response deleteTask(String task){
+    @Path("delete/{id}")
+    public Response deleteTask(@PathParam("id") int id){
         try{
-            Gson gson = new Gson();
             TaskProvider provider = new TaskProvider();
-            Task obj = gson.fromJson(task, Task.class);
-            provider.deleteTask(obj.getId());
+            provider.deleteTask(id);
             return Response
                     .status(200)
                     .header("Access-Control-Allow-Origin","*")
                     .build();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return Response
@@ -62,17 +57,14 @@ public class TaskServices {
     @PUT
     @Consumes("application/json")
     @Path("update")
-    public Response updateCategory(String task){
+    public Response updateCategory(Task obj){
         try {
-            Gson gson = new Gson();
             TaskProvider provider= new TaskProvider();
-            Task obj = gson.fromJson(task,Task.class);
             provider.updateTask(obj);
             return Response
                     .status(200)
                     .header("Access-Control-Allow-Origin","*")
                     .build();
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return Response
@@ -83,19 +75,15 @@ public class TaskServices {
     }
 
     @GET
-    @Consumes("application/json")
-    @Produces("application/json")
-    @Path("getAll")
+    @Path("all")
     public Response getAllTasks(){
         try {
-            Gson gson = new Gson();
             TaskProvider provider= new TaskProvider();
-            TaskList tasks= new TaskList(provider.getAllTasks());
-            String list = gson.toJson(tasks,TaskList.class);
+            ArrayList<Task> tasks = provider.getAllTasks();
             return Response
                     .status(200)
-                    .entity(list)
-                    .header("Access-Control-Allow-Origin","*")
+                    .entity(tasks)
+                    .header("Content-Type","application/json")
                     .build();
         } catch (SQLException | ParseException throwables) {
             throwables.printStackTrace();
