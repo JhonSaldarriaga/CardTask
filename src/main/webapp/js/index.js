@@ -2,7 +2,7 @@ const createBtn = document.getElementById('createBtn');
 const title = document.getElementById('titleTask');
 const description = document.getElementById('descriptionTask');
 
-addTask = () => {
+const addTask = () => {
     const task = new Task(title.value, description.value, "to_do", "2021-06-03");
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', ()=>{
@@ -20,6 +20,20 @@ addTask = () => {
         document.getElementById('descriptionTask').value = "";
     };
     clean();
-}
+};
 
 createBtn.addEventListener('click', addTask);
+
+const getAllTasks = () => {
+    let xhr = new XMLHttpRequest();
+    xhr.addEventListener('readystatechange', ()=>{
+        if(xhr.readyState === 4){
+            let json = xhr.responseText;
+            let response = JSON.parse(json);
+            console.log(response);
+        }
+    });
+    xhr.open("GET", "http://localhost:8081/CardTask_war/api/task/all");
+    xhr.send();
+};
+getAllTasks();
