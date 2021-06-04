@@ -43,7 +43,7 @@ const addTask = () => {
     let hoy = new Date();
     let fecha = hoy.getFullYear() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getDate();
     console.log(fecha);
-    const task = new Task(0, title.value, description.value, "to_do", fecha);
+    const task = new Task(title.value, description.value, "to_do", fecha);
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', ()=>{
         if(xhr.readyState ===4 ){
@@ -79,7 +79,7 @@ toDoContainer.addEventListener('drop', e=>{
     const number = id.split('-')[1];
     toDoContainer.appendChild(document.getElementById(id));
 
-    const updateCa = new UpdateCategory(number, "to-do");
+    const updateCa = new UpdateCategory(number, "to_do");
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', ()=>{
         if(xhr.readyState ===4 ){

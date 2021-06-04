@@ -31,6 +31,11 @@ public class Task {
         this.date = date;
     }
 
+    public Task(String id, String category) throws ParseException {
+        this.id = Integer.parseInt(id);
+        this.category = category;
+    }
+
     public String getCategory() {
         return category;
     }
