@@ -49,6 +49,10 @@ body {
     width: 300px;
 }
 
+.article.hover {
+    background-color: #474747;
+}
+
 .article input {
     margin: 10px 10px 10px 20px;
     width: 180px;
@@ -127,13 +131,4 @@ body {
 #descend-l {
     background-color: #4A314D;
     margin-right: 230px;
-}
-
-.eraseBtn {
-    position: relative;
-    left: 0;
-    top: 0;
-    border-radius: 10px;
-    margin: 2px 5px;
-    background-color: red;
 }

@@ -39,13 +39,7 @@ public class Task {
         this.category = category;
     }
 
-    public static SimpleDateFormat getFormat() {
-        return format;
-    }
-
-    public static void setFormat(SimpleDateFormat format) {
-        Task.format = format;
-    }
+    public void setId(int id) { this.id = id; }
 
     public int getId() {
         return id;

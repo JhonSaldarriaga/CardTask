@@ -1,6 +1,7 @@
 package services;
 
 import model.Task;
+import model.UpdateCategory;
 import provider.TaskProvider;
 
 import javax.ws.rs.*;
@@ -54,11 +55,11 @@ public class TaskServices {
 
     @PUT
     @Consumes("application/json")
-    @Path("update")
-    public Response updateCategory(Task obj){
+    @Path("updateca")
+    public Response updateCategory(UpdateCategory obj){
         try {
             TaskProvider provider= new TaskProvider();
-            provider.updateTask(obj);
+            provider.updateTaskCategory(obj);
             return Response
                     .status(200)
                     .header("Access-Control-Allow-Origin","*")

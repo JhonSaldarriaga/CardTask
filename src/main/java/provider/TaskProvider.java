@@ -2,6 +2,7 @@ package provider;
 
 import db.DBConnection;
 import model.Task;
+import model.UpdateCategory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,14 +24,13 @@ public class TaskProvider {
         connection.disconnect();
     }
 
-    public void updateTask(Task task) throws SQLException {
+    public void updateTaskCategory(UpdateCategory obj) throws SQLException {
         DBConnection connection = new DBConnection();
-        String sql = ("UPDATE A00362210_tasks SET title=$TITLE, description=$DESCRIPTION, category=$CATEGORY, date=$DATE WHERE id = $ID")
-                .replace("$ID", "" + task.getId())
-                .replace("$TITLE","'"+task.getTitle()+"'")
-                .replace("$DESCRIPTION", "'"+task.getDescription()+"'")
-                .replace("$CATEGORY","'"+task.getCategory()+"'")
-                .replace("$DATE","'" + task.getDate()  + "'");
+        String sql = ("UPDATE A00362210_tasks SET category=$CATEGORY WHERE id = $ID")
+                .replace("$ID", "" + obj.getId())
+                .replace("$CATEGORY","'"+obj.getCategory()+"'");
+        System.out.println(obj.getId());
+        System.out.println(obj.getCategory());
         connection.connect();
         connection.commandSQL(sql);
         connection.disconnect();
